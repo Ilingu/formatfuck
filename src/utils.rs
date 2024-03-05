@@ -4,3 +4,8 @@ macro_rules! errorlog {
         eprintln!("{}", $msg.red())
     };
 }
+
+pub enum AppError {
+    FileReading,
+    UnwrapOption,
+}

@@ -1,8 +1,14 @@
+use std::{ops::RangeInclusive, path::Path};
+
+use crate::utils::AppError;
+
 mod gof;
 mod mir;
 
 pub trait Animation {
-    fn new() -> Self;
+    fn new(filepath: &Path, window_size: RangeInclusive<usize>) -> Result<Self, AppError>
+    where
+        Self: std::marker::Sized;
 
     fn update(&mut self) {
         // for each frame count the number of characters that moved
@@ -11,5 +17,6 @@ pub trait Animation {
     }
 
     fn compute_next_frame(&mut self);
+    /// save the frame in the file
     fn render_frame(&self) {}
 }
