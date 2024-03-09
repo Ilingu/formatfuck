@@ -3,22 +3,32 @@ mod utils;
 
 use std::{env, path::Path};
 
+use animation::{mir::MakeItRain, Animation};
 use colored::Colorize;
+use utils::ErrorMsg;
 
 fn main() {
     let args = env::args().skip(1).collect::<Vec<_>>();
     if args.len() != 3 {
-        errorlog!(format!("[FATAL] expected 3 arguments found {}", args.len()));
+        if args.len() == 1 && args[0] == "--help" || args[0] == "-h" {
+            println!(
+                "{}",
+                "OPTIONS: [animation_type] [filepath] [lines]\nanimation_type: make_it_rain or game_of_life\nlines: inclusive range of lines (separated by ':') affected by the animation (e.g: '2:5', will only animate line 2 to 5 (inclusive)".blue()
+            );
+            return;
+        }
+
+        errlog!("[FATAL] expected 3 arguments found {}", args.len());
         return;
     }
 
     let (animation, file, lines) = (args[0].as_str(), &args[1], &args[2]);
     if !Path::new(file).exists() {
-        errorlog!(format!("[FATAL] file not found: '{}'", file));
+        errlog!("[FATAL] file not found: '{}'", file);
         return;
     }
     if lines.is_empty() {
-        errorlog!(format!("[FATAL] no windows size"));
+        errlog!("[FATAL] no windows size");
         return;
     }
 
@@ -27,17 +37,16 @@ fn main() {
         .filter_map(|l| l.parse::<usize>().ok())
         .collect::<Vec<_>>();
     if lines.len() != 2 {
-        errorlog!(format!("[FATAL] invalid windows size"));
+        errlog!("[FATAL] invalid windows size");
         return;
     }
-    let window_size = lines[0]..=lines[1];
-
+    let window_size = lines[0]..=lines[1]; // line should begin at 0
     match animation {
-        "make_it_rain" => {}
-        "game_of_life" => {}
-        _ => errorlog!(format!(
-            "[ERROR] no implemented animation for '{}'",
-            animation
-        )),
+        "make_it_rain" => {
+            let mut mir = MakeItRain::new(Path::new(file), window_size).unwrap_app();
+            mir.animation_loop().unwrap_app()
+        }
+        "game_of_life" => errlog!("[ERROR] not implemented yet"),
+        _ => errlog!("[ERROR] no implemented animation for '{}'", animation),
     }
 }

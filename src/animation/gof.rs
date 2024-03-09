@@ -1,4 +1,4 @@
-use std::{ops::RangeInclusive, path::Path};
+use std::{fs::File, ops::RangeInclusive, path::Path};
 
 use crate::utils::AppError;
 
@@ -11,7 +11,15 @@ impl Animation for GameOfLife {
         todo!()
     }
 
-    fn compute_next_frame(&mut self) {
+    fn compute_next_frame(&mut self) -> usize {
+        todo!()
+    }
+
+    fn animation_loop(&mut self) -> Result<(), AppError> {
+        todo!()
+    }
+
+    fn render_frame(&mut self, file: &mut File) -> Result<(), AppError> {
         todo!()
     }
 }
