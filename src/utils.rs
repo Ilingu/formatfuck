@@ -19,8 +19,8 @@ impl PathToStr for Path {
 }
 
 pub enum AppError {
-    FileReading(String),
-    FileWriting(String),
+    FileReading,
+    FileWriting,
     FileRewind,
     InvalidLines,
     UnwrapOption,
@@ -35,11 +35,11 @@ impl<T> ErrorMsg<T> for Result<T, AppError> {
             Ok(data) => data,
             Err(e) => {
                 match e {
-                    AppError::FileReading(fpath) => {
-                        errlog!("[FATAL]: There was an error while reading '{fpath}'")
+                    AppError::FileReading => {
+                        errlog!("[FATAL]: There was an error while reading file")
                     }
-                    AppError::FileWriting(fpath) => {
-                        errlog!("[FATAL]: There was an error while writing '{fpath}'")
+                    AppError::FileWriting => {
+                        errlog!("[FATAL]: There was an error while writing file")
                     }
                     AppError::InvalidLines => errlog!("[ERROR] Lines range out of bounds"),
                     AppError::UnwrapOption => errlog!("Unwrap on None"),

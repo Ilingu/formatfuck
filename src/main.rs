@@ -3,7 +3,7 @@ mod utils;
 
 use std::{env, path::Path};
 
-use animation::{mir::MakeItRain, Animation};
+use animation::{gol::GameOfLife, mir::MakeItRain, Animation};
 use colored::Colorize;
 use utils::ErrorMsg;
 
@@ -42,11 +42,8 @@ fn main() {
     }
     let window_size = lines[0]..=lines[1]; // line should begin at 0
     match animation {
-        "make_it_rain" => {
-            let mut mir = MakeItRain::new(Path::new(file), window_size).unwrap_app();
-            mir.animation_loop().unwrap_app()
-        }
-        "game_of_life" => errlog!("[ERROR] not implemented yet"),
+        "make_it_rain" => MakeItRain::create_and_launch(Path::new(file), window_size).unwrap_app(),
+        "game_of_life" => GameOfLife::create_and_launch(Path::new(file), window_size).unwrap_app(),
         _ => errlog!("[ERROR] no implemented animation for '{}'", animation),
     }
 }
