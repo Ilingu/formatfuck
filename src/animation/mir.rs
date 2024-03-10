@@ -1,9 +1,4 @@
-use std::{
-    fs::{self, File},
-    io::Write,
-    ops::RangeInclusive,
-    path::Path,
-};
+use std::{fs::File, io::Write, ops::RangeInclusive};
 
 use crate::utils::{clear_file, AppError};
 
