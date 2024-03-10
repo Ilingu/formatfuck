@@ -2,7 +2,7 @@
 
 #### an attempt to bring [cellular-automaton.nvim](https://github.com/Eandrju/cellular-automaton.nvim) to vscode
 
-https://github.com/Ilingu/formatfuck/assets/57411599/a6387461-5f6b-4b7f-91d0-e73d610b99af
+https://github.com/Ilingu/formatfuck/assets/57411599/2f6a8d32-5828-412b-9539-280154960a7a
 
 ## Installation
 
