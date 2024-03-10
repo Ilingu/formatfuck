@@ -10,7 +10,7 @@ use utils::ErrorMsg;
 fn main() {
     let args = env::args().skip(1).collect::<Vec<_>>();
     if args.len() != 3 {
-        if args.len() == 1 && args[0] == "--help" || args[0] == "-h" {
+        if args.len() == 1 && (args[0] == "--help" || args[0] == "-h") {
             println!(
                 "{}",
                 "OPTIONS: [animation_type] [filepath] [lines]\nanimation_type: make_it_rain or game_of_life\nlines: inclusive range of lines (separated by ':') affected by the animation (e.g: '2:5', will only animate line 2 to 5 (inclusive)".blue()
